@@ -1,20 +1,28 @@
 import './App.css';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 function App() {
-  const inputRef = useRef(null);
+  const [value, setValue] = useState('');
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    console.log(value);
+    
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const inputValue = inputRef.current.value;
-    console.log(inputValue);
-    
+    console.log(value);
   }
   return(
-  <form onSubmit={handleSubmit}>
-    <input ref={inputRef} type='text'/>
-    <button type='submit'>Submit</button>
-  </form>
+    <form onSubmit={handleSubmit}>
+      <input 
+        value={value}
+        onChange={handleChange}
+        type='text'
+      />
+      <button type='submit'>Submit</button>
+    </form>
   )
 }
 
