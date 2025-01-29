@@ -2,17 +2,21 @@ import './App.css';
 import { createContext, useState, useContext } from 'react';
 
 function App() {
-  const [greeting, setGreeting] = useState({greet: 'Hello!'})
-  console.log(setGreeting);
+  const [greeting, setGreeting] = useState(
+    {
+    greet: 'Hello',
+    place: 'world'
+    }
+  )
   
   function updateGreeting(){
-    const newGreeting = {...greeting}
-    newGreeting.greet = 'Hello world!!!'
-    setGreeting(newGreeting)
+    setGreeting(prevState => {
+      return {...prevState, place: 'Bohdan'}
+    })
   }
   return(
     <>
-    <h1>{greeting.greet}</h1>
+    <h1>{greeting.greet}, {greeting.place}</h1>
     <button onClick={updateGreeting}>Update greeting</button>
     </>
   )
