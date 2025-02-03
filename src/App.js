@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [toggle, setToggle] = useState(false);
+
+  const clickHandler = () => {
+    setToggle(!toggle);
+  }
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      console.log('Таймер працює...');
-    }, 1000);
+    document.title = toggle ? 'Toggle is valid: true' : 'Title';
+  },[toggle])
 
-    return () => {
-      clearInterval(interval); // Очищення таймера перед видаленням компонента
-      console.log('Таймер зупинено.');
-    };
-  }, []); // Виконується лише один раз
-
-  return <h1>Таймер запущено</h1>;
+  return(
+    <div>
+      <h1>Title</h1>
+      <button onClick={clickHandler}>Toggle message</button>
+      {toggle && <p>Toggle is valid: true</p>}
+    </div>
+  )
 }
 
-export default Ap
+export default App
