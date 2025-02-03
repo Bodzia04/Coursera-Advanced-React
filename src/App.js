@@ -1,18 +1,18 @@
-import './App.css';
-import { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   useEffect(() => {
-    console.log('count:', count);
-  }, [count])
+    const interval = setInterval(() => {
+      console.log('Таймер працює...');
+    }, 1000);
 
-  return(
-    <>
-    <p>Counter: {count}</p>
-    <button onClick={() => setCount(count + 1)}>Enlarge</button>
-    </>
-  )
+    return () => {
+      clearInterval(interval); // Очищення таймера перед видаленням компонента
+      console.log('Таймер зупинено.');
+    };
+  }, []); // Виконується лише один раз
+
+  return <h1>Таймер запущено</h1>;
 }
-export default App;
+
+export default Ap
