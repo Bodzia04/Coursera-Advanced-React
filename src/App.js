@@ -1,23 +1,27 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 
 function App() {
-  const [toggle, setToggle] = useState(false);
+  const [user, setUser] = React.useState([]);
 
-  const clickHandler = () => {
-    setToggle(!toggle);
-  }
+  const fetchData = () => {
+    fetch('https://randomuser.me/api/?results=1')
+      .then((response) => response.json())
+      .then((data) => setUser(data))
+  };
 
-  useEffect(() => {
-    document.title = toggle ? 'Toggle is valid: true' : 'Title';
-  },[toggle])
+  React.useEffect(() => {
+    fetchData();
+  },[]);
 
-  return(
-    <div>
-      <h1>Title</h1>
-      <button onClick={clickHandler}>Toggle message</button>
-      {toggle && <p>Toggle is valid: true</p>}
+  return Object.keys(user).length > 0 ? (
+    <div style={{padding: '40px'}}>
+      <h1>Customer data</h1>
+      <h2>Name: {user.results[0].name.first}</h2>
+      <img src={user.results[0].picture.large} alt=''></img>
     </div>
-  )
+  ) : (
+    <h1>Data pending...</h1>
+  );
 }
 
 export default App
