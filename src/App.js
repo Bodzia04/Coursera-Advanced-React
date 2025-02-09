@@ -1,21 +1,34 @@
-import React from 'react';
-import './App.css'
-function reducer(state, action){
-  if(action.type === 'decrement') return {money: state.money - 10};
-  if(action.type === 'increment') return {money: state.money + 10};
-}
-function App() {
+import {useRef, useState, useEffect} from 'react';
 
+function usePrevious(val){
+  const ref = useRef();
 
-  const initialState = {money: 100}
-  const [state, dispatch] = React.useReducer(reducer, initialState)
-  return (
-    <div className='App'>
-      <h1>Wallet: {state.money}</h1>
-      <button onClick={() => dispatch({type: 'decrement'})}>Decrement</button>
-      <button onClick={() => dispatch({type: 'increment'})}>Increment</button>
+  useEffect(() => {
+    ref.current = val;
+  }, [val]);
+
+  return ref.current;
+};
+
+function App(){
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const previousDay = usePrevious(days[currentIndex]);
+  
+  function getNextDay(){
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % days.length);
+  }
+
+  return(
+    <div>
+      <h1>
+        Today: {days[currentIndex]}
+        {previousDay && `, Previous day: ${previousDay}`}
+      </h1>
+      <button onClick={getNextDay}>Next Day</button>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
