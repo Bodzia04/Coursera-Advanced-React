@@ -1,20 +1,33 @@
-import { useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 
 export default function App(){
-  const [timer, setTimer] = useState(0);
-
+  const [hour, setHour] = useState();
+  const intervalRef = useRef();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prev) => prev + 1);
-    }, 1000);
+    startHour();
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current);
   }, []);
+
+  function stopHour(){
+    clearInterval(intervalRef.current)
+  }
+
+  function startHour(){
+    intervalRef.current = setInterval(() => {
+      setHour(new Date().toLocaleTimeString());
+    }, 1000)
+
+  }
 
   return (
     <div>
-      <p>Timer: {timer}</p>
+      <p>Hour: {hour}</p>
+      <button onClick={stopHour}>Stop</button>
+      <button onClick={startHour}>Start</button>
     </div>
   )
+  
+
 }
