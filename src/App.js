@@ -1,34 +1,20 @@
-import {useRef, useState, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 
-function usePrevious(val){
-  const ref = useRef();
+export default function App(){
+  const [timer, setTimer] = useState(0);
+
 
   useEffect(() => {
-    ref.current = val;
-  }, [val]);
+    const interval = setInterval(() => {
+      setTimer((prev) => prev + 1);
+    }, 1000);
 
-  return ref.current;
-};
+    return () => clearInterval(interval);
+  }, []);
 
-function App(){
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const previousDay = usePrevious(days[currentIndex]);
-  
-  function getNextDay(){
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % days.length);
-  }
-
-  return(
+  return (
     <div>
-      <h1>
-        Today: {days[currentIndex]}
-        {previousDay && `, Previous day: ${previousDay}`}
-      </h1>
-      <button onClick={getNextDay}>Next Day</button>
+      <p>Timer: {timer}</p>
     </div>
-  );
-};
-
-export default App;
+  )
+}
