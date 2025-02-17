@@ -1,18 +1,15 @@
-function Card({title, children}){
-  return (
-    <div className='card'>
-      <h1>{title}</h1>
-      <div className='card-content'>
-        <p>{children}</p>
-      </div>
-    </div>
-  )
-};
+import React from 'react';
+
+function List({children}){
+  return <ul>{React.Children.map(children, (child) => <li>{child}</li>)}</ul>
+}
 
 export default function App(){
   return (
-    <Card title='React props'>
-      <p>Lorem nbtbnt ijtnbtbnt rbnr tbn tbntbnrbnrt ng gn ergnre gnre re   </p>
-    </Card>
+    <List>
+      <span>Item 1</span>
+      <span>Item 2</span>
+      <span>Item 3</span>
+    </List>
   )
-};
+}
