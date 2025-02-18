@@ -1,15 +1,15 @@
-import React from 'react';
-
-function List({children}){
-  return <ul>{React.Children.map(children, (child) => <li>{child}</li>)}</ul>
+function Dessert(props){
+  return <li key={props.key}>{props.title}</li>
 }
 
 export default function App(){
+  const desserts = ['cake', 'chocolate', 'sweet'];
+
   return (
-    <List>
-      <span>Item 1</span>
-      <span>Item 2</span>
-      <span>Item 3</span>
-    </List>
+    <ul>
+      {desserts.map((dessert) => (
+        <Dessert key={dessert} title={dessert}/>
+      ))}
+    </ul>
   )
 }
