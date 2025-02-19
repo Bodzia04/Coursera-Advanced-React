@@ -1,15 +1,20 @@
-function Dessert(props){
-  return <li key={props.key}>{props.title}</li>
+import React from 'react'
+
+function Wrapper({children}){
+  return (
+  <div className='wrapper'>
+    {React.Children.map(children, (child) => (
+      React.cloneElement(child, {className: 'staled-child'})
+    ))}
+  </div>  
+  )
 }
 
 export default function App(){
-  const desserts = ['cake', 'chocolate', 'sweet'];
-
-  return (
-    <ul>
-      {desserts.map((dessert) => (
-        <Dessert key={dessert} title={dessert}/>
-      ))}
-    </ul>
+  return(
+    <Wrapper>
+      <p>mtngbrfvd</p>
+      <p>ntrefrtnnbrrghgb</p>
+    </Wrapper>
   )
 }
