@@ -1,20 +1,33 @@
-import React from 'react'
+import React from 'react';
 
-function Wrapper({children}){
-  return (
-  <div className='wrapper'>
-    {React.Children.map(children, (child) => (
-      React.cloneElement(child, {className: 'staled-child'})
-    ))}
-  </div>  
-  )
+const obj = {
+  id: 1,
+  item: 'Orange'
 }
+
+const copyObj = {...obj, item: 'Apple'};
+console.log('copyObj',copyObj);
+console.log('obj', obj);
+
+
+const Row = ({children}) => {
+  return(
+    <div className='Row'>
+      {React.Children.map(children, (child, index) => {
+        return child
+      })}
+    </div>
+  )
+};
 
 export default function App(){
   return(
-    <Wrapper>
-      <p>mtngbrfvd</p>
-      <p>ntrefrtnnbrrghgb</p>
-    </Wrapper>
+    <div className='App'>
+      <Row spasing={32}>
+        <p>Bohdan</p>
+        <p>Marchuk</p>
+        <p>20 years</p>
+      </Row>
+    </div>
   )
 }
