@@ -1,42 +1,24 @@
-import React from 'react';
+import React from 'react'
 
-const updatedComponent = (OriginalComponent) => {
-  function NewComponent(){
-    const [money, setMoney] = React.useState(10);
-    function handleIncrease(){
-      setMoney(money * 2);
-    }
-    return <OriginalComponent handleIncrease={handleIncrease} money={money}/>
-  }
-  return NewComponent;
+const User = ({name}) => {
+  return <h2>Hello {name}</h2>
 }
 
-const Person1 = ({handleIncrease, money}) => {
-  return(
-    <div>
-      <h2>Bohdan has money ${money}</h2>
-      <button onClick={handleIncrease}>Increase</button>
+const withBorder = (WrappedComponent) => {
+  return (props) => (
+    <div style={{border: '1px solid red', padding: '10px', margin: '10px'}}>
+      <WrappedComponent {...props}/>
     </div>
   )
 }
 
-const Person2 = ({handleIncrease, money}) => {
-  return(
-    <div>
-      <h2>Vova has money ${money}</h2>
-      <button onClick={handleIncrease}>Increase</button>
-    </div>
-  )
-}
-
-const EnhancedPerson1 = updatedComponent(Person1);
-const EnhancedPerson2 = updatedComponent(Person2);
+const UserWithBorder = withBorder(User);
 
 export default function App(){
-  return(
+  return (
     <div>
-      <EnhancedPerson1/>
-      <EnhancedPerson2/>
+      <UserWithBorder name='Alice'/>
+      <UserWithBorder name='Jorgh'/>
     </div>
   )
 }
