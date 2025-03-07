@@ -1,24 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-const User = ({name}) => {
-  return <h2>Hello {name}</h2>
+function Message(props){
+  return(
+    <div>{props.text}</div>
+  );
+};
+
+const withRandomColor = (WrappedComponent) => {
+  return (props) => {
+    const randomColor = getRandomColor();
+    return (
+      <div style={{color: randomColor}}>
+        <WrappedComponent {...props}/>
+      </div>
+    )
+  }
 }
 
-const withBorder = (WrappedComponent) => {
-  return (props) => (
-    <div style={{border: '1px solid red', padding: '10px', margin: '10px'}}>
-      <WrappedComponent {...props}/>
-    </div>
-  )
-}
-
-const UserWithBorder = withBorder(User);
+const getRandomColor = () => '#' + Math.floor(Math.random()*16777215).toString(16);
+const MessageWithRandomColor = withRandomColor(Message);
 
 export default function App(){
-  return (
-    <div>
-      <UserWithBorder name='Alice'/>
-      <UserWithBorder name='Jorgh'/>
-    </div>
-  )
-}
+  return(
+    <MessageWithRandomColor text='Hello, HOC!'/>
+  );
+};
